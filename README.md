@@ -10,14 +10,14 @@ An automated web application that scrapes district-level weather warnings for Ke
 
 ### **➡️ Live Demo**
 
-**[https://your-vercel-url.vercel.app/](https://your-vercel-url.vercel.app/)**
+**[https://kerala-weather-warning.vercel.app/](https://kerala-weather-warning.vercel.app/)**
 
-*(Replace the link above with your actual Vercel URL!)*
+
 
 ### **✨ Screenshot**
 
-![Dashboard Screenshot](./public/dashboard-screenshot.png)
-*(To add a screenshot: take one of your dashboard, add it to your project folder, and update the path above.)*
+![Dashboard Screenshot](./public/dashboard-screenshot.jpeg)
+
 
 ---
 
