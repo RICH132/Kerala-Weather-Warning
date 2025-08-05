@@ -1,0 +1,65 @@
+{
+  "lastUpdated": "2025-08-05T16:58:27.447Z",
+  "warnings": [
+    {
+      "district": "ALAPPUZHA  ",
+      "color": "Orange"
+    },
+    {
+      "district": "ERNAKULAM  ",
+      "color": "Red"
+    },
+    {
+      "district": "IDUKKI  ",
+      "color": "Orange"
+    },
+    {
+      "district": "KANNUR  ",
+      "color": "Orange"
+    },
+    {
+      "district": "KASARAGOD  ",
+      "color": "Orange"
+    },
+    {
+      "district": "KOLLAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KOTTAYAM  ",
+      "color": "Orange"
+    },
+    {
+      "district": "KOZHIKODE  ",
+      "color": "Orange"
+    },
+    {
+      "district": "MALAPPURAM  ",
+      "color": "Red"
+    },
+    {
+      "district": "PALAKKAD  ",
+      "color": "Orange"
+    },
+    {
+      "district": "PATHANAMTHITTA  ",
+      "color": "Orange"
+    },
+    {
+      "district": "THIRUVANANTHAPURAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "THRISSUR  ",
+      "color": "Red"
+    },
+    {
+      "district": "WAYANAD  ",
+      "color": "Orange"
+    },
+    {
+      "district": "LAKSHADWEEP  ",
+      "color": "Yellow"
+    }
+  ]
+}
