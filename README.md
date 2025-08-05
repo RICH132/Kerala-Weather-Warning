@@ -16,8 +16,7 @@ An automated web application that scrapes district-level weather warnings for Ke
 
 ### **✨ Screenshot**
 
-![Dashboard Screenshot](./path/to/your/screenshot.png)
-
+![Dashboard Screenshot](./public/dashboard-screenshot.png)
 *(To add a screenshot: take one of your dashboard, add it to your project folder, and update the path above.)*
 
 ---
