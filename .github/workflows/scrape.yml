@@ -1,49 +1,41 @@
 name: Scrape Latest Weather Data
 
 on:
-  # This tells GitHub to run the script on a schedule
   schedule:
-    # This is the cron schedule for "every 12 hours"
     - cron: '0 */12 * * *'
-  
-  # This line allows you to run the script manually from the "Actions" tab on GitHub
   workflow_dispatch:
 
 jobs:
   scrape:
-    # This job will run on a fresh virtual machine running Ubuntu Linux
-    runs-on: ubuntu-latest
+    # ADD THIS 2-LINE BLOCK TO GRANT PERMISSION
+    permissions:
+      contents: write
+    # END OF NEW BLOCK
 
+    runs-on: ubuntu-latest
     steps:
-      # Step 1: Checks out a copy of your repository onto the virtual machine
       - name: Check out repo
         uses: actions/checkout@v4
 
-      # Step 2: Installs Node.js so we can run your script
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # Step 3: Installs your project's dependencies (Playwright, Serve)
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Installs the browsers needed for Playwright on the Linux machine
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # Step 5: Runs your scraper script!
       - name: Run scraper
         run: npm run scrape
 
-      # Step 6: Commits the newly updated data.json file back to your GitHub repository
       - name: Commit and push if data changed
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add public/data.json
-          # This command checks if the file has actually changed before committing
           if ! git diff-index --quiet HEAD; then
             git commit -m "Automated data update"
             git push
