@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2025-08-09T00:42:39.459Z",
+  "lastUpdated": "2025-08-09T12:16:17.723Z",
   "warnings": [
     {
-      "district": "IDUKKI  ",
+      "district": "ERNAKULAM  ",
       "color": "Yellow"
     },
     {
-      "district": "KANNUR  ",
+      "district": "IDUKKI  ",
       "color": "Yellow"
     },
     {
@@ -14,7 +14,7 @@
       "color": "Yellow"
     },
     {
-      "district": "PATHANAMTHITTA  ",
+      "district": "KOTTAYAM  ",
       "color": "Yellow"
     }
   ]
