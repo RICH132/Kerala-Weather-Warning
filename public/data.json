@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-14T00:44:43.836Z",
+  "lastUpdated": "2025-08-14T12:18:31.244Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -7,6 +7,10 @@
     },
     {
       "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "IDUKKI  ",
       "color": "Yellow"
     },
     {
@@ -22,6 +26,10 @@
       "color": "Yellow"
     },
     {
+      "district": "KOTTAYAM  ",
+      "color": "Yellow"
+    },
+    {
       "district": "KOZHIKODE  ",
       "color": "Yellow"
     },
@@ -31,6 +39,10 @@
     },
     {
       "district": "PALAKKAD  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "PATHANAMTHITTA  ",
       "color": "Yellow"
     },
     {
