@@ -1,33 +1,4 @@
 {
-  "lastUpdated": "2025-08-31T00:45:26.644Z",
-  "warnings": [
-    {
-      "district": "IDUKKI  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "KANNUR  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "KASARAGOD  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "KOLLAM  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "KOTTAYAM  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "PATHANAMTHITTA  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "THIRUVANANTHAPURAM  ",
-      "color": "Yellow"
-    }
-  ]
+  "lastUpdated": "2025-08-31T12:15:27.226Z",
+  "warnings": []
 }
