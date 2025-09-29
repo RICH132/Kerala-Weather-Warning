@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-29T00:41:36.482Z",
+  "lastUpdated": "2025-09-29T12:17:19.193Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -55,10 +55,6 @@
     },
     {
       "district": "WAYANAD  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "LAKSHADWEEP  ",
       "color": "Yellow"
     }
   ]
