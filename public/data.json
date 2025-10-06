@@ -1,8 +1,12 @@
 {
-  "lastUpdated": "2025-10-06T00:42:08.428Z",
+  "lastUpdated": "2025-10-06T12:16:52.218Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "ERNAKULAM  ",
       "color": "Yellow"
     },
     {
