@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-15T00:41:10.414Z",
+  "lastUpdated": "2025-10-15T12:19:42.502Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -7,11 +7,11 @@
     },
     {
       "district": "ERNAKULAM  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "IDUKKI  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "KANNUR  ",
@@ -27,7 +27,7 @@
     },
     {
       "district": "KOTTAYAM  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "KOZHIKODE  ",
