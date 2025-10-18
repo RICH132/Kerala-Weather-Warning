@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-18T00:40:02.401Z",
+  "lastUpdated": "2025-10-18T12:16:13.211Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -11,7 +11,7 @@
     },
     {
       "district": "IDUKKI  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KANNUR  ",
@@ -27,7 +27,7 @@
     },
     {
       "district": "KOTTAYAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KOZHIKODE  ",
@@ -43,7 +43,7 @@
     },
     {
       "district": "PATHANAMTHITTA  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "THIRUVANANTHAPURAM  ",
