@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-24T00:39:57.877Z",
+  "lastUpdated": "2025-10-24T12:18:57.266Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -23,7 +23,7 @@
     },
     {
       "district": "KOLLAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KOTTAYAM  ",
@@ -31,7 +31,7 @@
     },
     {
       "district": "KOZHIKODE  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "MALAPPURAM  ",
@@ -47,7 +47,7 @@
     },
     {
       "district": "THIRUVANANTHAPURAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "THRISSUR  ",
@@ -55,7 +55,7 @@
     },
     {
       "district": "WAYANAD  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "LAKSHADWEEP  ",
