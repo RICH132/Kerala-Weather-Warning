@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-11-23T00:49:00.018Z",
+  "lastUpdated": "2025-11-23T12:14:40.620Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -23,7 +23,7 @@
     },
     {
       "district": "KOLLAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KOTTAYAM  ",
@@ -47,7 +47,7 @@
     },
     {
       "district": "THIRUVANANTHAPURAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "THRISSUR  ",
