@@ -1,4 +1,17 @@
 {
-  "lastUpdated": "2025-12-02T00:44:09.937Z",
-  "warnings": []
+  "lastUpdated": "2025-12-02T12:18:51.677Z",
+  "warnings": [
+    {
+      "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "IDUKKI  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "PATHANAMTHITTA  ",
+      "color": "Yellow"
+    }
+  ]
 }
