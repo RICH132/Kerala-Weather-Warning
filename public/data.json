@@ -1,4 +1,41 @@
 {
-  "lastUpdated": "2026-03-13T00:57:28.064Z",
-  "warnings": []
+  "lastUpdated": "2026-03-13T12:28:44.943Z",
+  "warnings": [
+    {
+      "district": "ALAPPUZHA  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KANNUR  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KASARAGOD  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KOLLAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KOTTAYAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KOZHIKODE  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "PALAKKAD  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "THRISSUR  ",
+      "color": "Yellow"
+    }
+  ]
 }
