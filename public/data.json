@@ -1,12 +1,8 @@
 {
-  "lastUpdated": "2026-03-15T01:06:47.665Z",
+  "lastUpdated": "2026-03-15T12:24:26.023Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
-      "color": "Yellow"
-    },
-    {
-      "district": "ERNAKULAM  ",
       "color": "Yellow"
     },
     {
@@ -34,7 +30,7 @@
       "color": "Yellow"
     },
     {
-      "district": "THIRUVANANTHAPURAM  ",
+      "district": "PATHANAMTHITTA  ",
       "color": "Yellow"
     },
     {
