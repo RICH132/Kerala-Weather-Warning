@@ -1,8 +1,16 @@
 {
-  "lastUpdated": "2026-03-17T00:59:02.284Z",
+  "lastUpdated": "2026-03-17T12:38:14.134Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "IDUKKI  ",
       "color": "Yellow"
     },
     {
@@ -26,6 +34,10 @@
       "color": "Yellow"
     },
     {
+      "district": "MALAPPURAM  ",
+      "color": "Yellow"
+    },
+    {
       "district": "PALAKKAD  ",
       "color": "Yellow"
     },
@@ -34,7 +46,15 @@
       "color": "Yellow"
     },
     {
+      "district": "THIRUVANANTHAPURAM  ",
+      "color": "Yellow"
+    },
+    {
       "district": "THRISSUR  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "WAYANAD  ",
       "color": "Yellow"
     }
   ]
