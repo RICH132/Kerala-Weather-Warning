@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-17T01:14:31.468Z",
+  "lastUpdated": "2026-04-17T12:47:53.448Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -7,6 +7,10 @@
     },
     {
       "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "IDUKKI  ",
       "color": "Yellow"
     },
     {
@@ -47,6 +51,10 @@
     },
     {
       "district": "THRISSUR  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "WAYANAD  ",
       "color": "Yellow"
     }
   ]
