@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-16T01:29:18.695Z",
+  "lastUpdated": "2026-05-16T12:50:54.276Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -11,7 +11,7 @@
     },
     {
       "district": "IDUKKI  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "KANNUR  ",
@@ -35,7 +35,7 @@
     },
     {
       "district": "MALAPPURAM  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "PALAKKAD  ",
