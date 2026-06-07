@@ -1,78 +1,124 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const lastUpdatedSpan = document.getElementById('last-updated');
-    const mapContainer = document.getElementById('map-container');
+    const lastUpdatedEl = document.getElementById('last-updated');
+    const mapLoadingEl = document.getElementById('map-loading');
+    const mapErrorEl = document.getElementById('map-error');
+    const alertSummaryEl = document.getElementById('alert-summary');
 
-    // 1. Initialize the Leaflet map, centered on Kerala
-    const map = L.map('map').setView([10.8505, 76.2711], 7);
+    const WARNING_COLORS = {
+        Red: '#d32f2f',
+        Orange: '#ef6c00',
+        Yellow: '#f9a825',
+        Green: '#388e3c',
+        None: 'oklch(0.72 0.01 230)'
+    };
 
-    // 2. Add the beautiful base map layer from OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    // 3. Define the colors for our warnings
     function getColor(warningColor) {
-        switch (warningColor) {
-            case 'Red':    return '#F44336';
-            case 'Orange': return '#FF9800';
-            case 'Yellow': return '#FFEB3B';
-            case 'Green':  return '#4CAF50';
-            default:       return '#BDBDBD'; // Default Grey for "No Warning"
+        return WARNING_COLORS[warningColor] || WARNING_COLORS.None;
+    }
+
+    function hideLoading() {
+        mapLoadingEl.classList.add('is-hidden');
+    }
+
+    function showError(message) {
+        hideLoading();
+        mapErrorEl.hidden = false;
+        mapErrorEl.textContent = message;
+    }
+
+    function buildPopupContent(districtName, warningColor) {
+        const swatchColor = getColor(warningColor === 'No Warning' ? 'None' : warningColor);
+        return `
+            <span class="popup-district">${districtName}</span>
+            <span class="popup-warning">
+                <span class="popup-swatch" style="background-color: ${swatchColor}"></span>
+                ${warningColor}
+            </span>
+        `;
+    }
+
+    function renderAlertSummary(warnings) {
+        const counts = { Red: 0, Orange: 0, Yellow: 0, Green: 0 };
+        warnings.forEach(({ color }) => {
+            if (counts[color] !== undefined) counts[color]++;
+        });
+
+        const badges = Object.entries(counts)
+            .filter(([, count]) => count > 0)
+            .map(([level, count]) =>
+                `<span class="alert-badge alert-badge--${level.toLowerCase()}">${count} ${level}</span>`
+            )
+            .join('');
+
+        if (badges) {
+            alertSummaryEl.innerHTML = badges;
+            alertSummaryEl.hidden = false;
         }
     }
 
-    // 4. Fetch both our weather data and the map shape data at the same time
+    const map = L.map('map', { zoomControl: true }).setView([10.8505, 76.2711], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
     Promise.all([
         fetch('data.json'),
         fetch('kerala-districts.geojson')
     ])
-    .then(([warningsResponse, geojsonResponse]) => {
-        if (!warningsResponse.ok) throw new Error('Could not load data.json. Please run the scraper.');
-        if (!geojsonResponse.ok) throw new Error('Could not load kerala-districts.geojson.');
-        return Promise.all([warningsResponse.json(), geojsonResponse.json()]);
-    })
-    .then(([weatherData, geojsonData]) => {
+        .then(([warningsResponse, geojsonResponse]) => {
+            if (!warningsResponse.ok) throw new Error('Could not load data.json. Please run the scraper.');
+            if (!geojsonResponse.ok) throw new Error('Could not load kerala-districts.geojson.');
+            return Promise.all([warningsResponse.json(), geojsonResponse.json()]);
+        })
+        .then(([weatherData, geojsonData]) => {
+            const updatedDate = new Date(weatherData.lastUpdated);
+            lastUpdatedEl.textContent = updatedDate.toLocaleString('en-IN', {
+                dateStyle: 'full',
+                timeStyle: 'short',
+                timeZone: 'Asia/Kolkata'
+            });
+            lastUpdatedEl.dateTime = updatedDate.toISOString();
 
-        // Update the timestamp on the page
-        lastUpdatedSpan.textContent = new Date(weatherData.lastUpdated).toLocaleString('en-IN', {
-            dateStyle: 'full', timeStyle: 'short', timeZone: 'Asia/Kolkata'
+            const warningsMap = new Map(
+                weatherData.warnings.map(d => [d.district.toUpperCase().trim(), d.color])
+            );
+
+            renderAlertSummary(weatherData.warnings);
+
+            L.geoJson(geojsonData, {
+                style(feature) {
+                    const districtName = feature.properties.DISTRICT.toUpperCase().trim();
+                    const warningColor = warningsMap.get(districtName) || 'None';
+
+                    return {
+                        fillColor: getColor(warningColor),
+                        weight: 1.5,
+                        opacity: 1,
+                        color: 'white',
+                        fillOpacity: 0.78
+                    };
+                },
+                onEachFeature(feature, layer) {
+                    const districtName = feature.properties.DISTRICT;
+                    const lookupName = districtName.toUpperCase().trim();
+                    const warningColor = warningsMap.get(lookupName) || 'No Warning';
+
+                    layer.bindPopup(buildPopupContent(districtName, warningColor));
+
+                    layer.on('mouseover', function () {
+                        this.setStyle({ weight: 2.5, fillOpacity: 0.9 });
+                    });
+                    layer.on('mouseout', function () {
+                        this.setStyle({ weight: 1.5, fillOpacity: 0.78 });
+                    });
+                }
+            }).addTo(map);
+
+            hideLoading();
+            map.invalidateSize();
+        })
+        .catch(error => {
+            showError('Could not load map data. Please ensure the scraper has run and all files are in the public folder.');
         });
-
-        // Create a lookup map for fast access: { "ERNAKULAM": "Red", ... }
-        // This is the robust part: it cleans the names before creating the map.
-        const warningsMap = new Map(
-            weatherData.warnings.map(d => [d.district.toUpperCase().trim(), d.color])
-        );
-
-        // 5. Create the GeoJSON layer, which will be our colored districts
-        L.geoJson(geojsonData, {
-            // This function styles each district based on the warning data
-            style: function(feature) {
-                // Clean the district name from the map file before looking it up
-                const districtName = feature.properties.DISTRICT.toUpperCase().trim();
-                const warningColor = warningsMap.get(districtName) || 'None';
-                
-                return {
-                    fillColor: getColor(warningColor),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.7
-                };
-            },
-            // This function adds interactivity (popups on click)
-            onEachFeature: function(feature, layer) {
-                const districtName = feature.properties.DISTRICT;
-                const lookupName = districtName.toUpperCase().trim();
-                const warningColor = warningsMap.get(lookupName) || 'No Warning';
-                
-                layer.bindPopup(`<strong>${districtName}</strong><br>Warning: ${warningColor}`);
-            }
-        }).addTo(map);
-    })
-    .catch(error => {
-        console.error("Error loading map or weather data:", error);
-        mapContainer.innerHTML = `<p style="color: red; text-align: center;"><b>Error:</b> Could not load map data. Please ensure the scraper has run and all files are in the 'public' folder.</p>`;
-    });
 });
