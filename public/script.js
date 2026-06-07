@@ -3,33 +3,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapLoadingEl = document.getElementById('map-loading');
     const mapErrorEl = document.getElementById('map-error');
     const alertSummaryEl = document.getElementById('alert-summary');
-    const mapWrapperEl = document.querySelector('.map-wrapper');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const WARNING_COLORS = {
-        Red: '#c62828',
-        Orange: '#e65100',
-        Yellow: '#f57f17',
-        Green: '#2e7d32',
-        None: 'oklch(0.68 0.015 230)'
+        Red: 'oklch(0.52 0.19 25)',
+        Orange: 'oklch(0.62 0.18 45)',
+        Yellow: 'oklch(0.76 0.16 80)',
+        Green: 'oklch(0.52 0.14 145)',
+        None: 'oklch(0.72 0.01 55)'
     };
 
     const WARNING_ADVICE = {
         Red: 'Take immediate precautions. Severe weather is expected.',
         Orange: 'Prepare for heavy rain or strong winds in your area.',
-        Yellow: 'Monitor updates. Weather conditions may worsen.',
-        Green: 'No active warning for this district right now.',
-        'No Warning': 'No active warning for this district right now.',
+        Yellow: 'Monitor updates. Conditions may worsen.',
+        Green: 'No active warning for this district.',
+        'No Warning': 'No active warning for this district.',
         None: 'Warning data is not available for this district.'
     };
 
-    function getColor(warningColor) {
-        return WARNING_COLORS[warningColor] || WARNING_COLORS.None;
+    const DISTRICT_STYLE = {
+        weight: 1.5,
+        opacity: 1,
+        color: 'oklch(0.98 0.006 55)',
+        fillOpacity: 0.82
+    };
+
+    const HOVER_STYLE = { weight: 2.5, fillOpacity: 0.95 };
+    const BASE_STYLE = { weight: 1.5, fillOpacity: 0.82 };
+
+    const STYLE_CACHE = Object.fromEntries(
+        Object.entries(WARNING_COLORS).map(([level, fillColor]) => [
+            level,
+            { ...DISTRICT_STYLE, fillColor }
+        ])
+    );
+
+    function getStyle(warningColor) {
+        return STYLE_CACHE[warningColor] || STYLE_CACHE.None;
     }
 
     function hideLoading() {
         mapLoadingEl.classList.add('is-hidden');
-        mapWrapperEl.classList.add('is-ready');
     }
 
     function showError(title, detail) {
@@ -41,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function buildPopupContent(districtName, warningColor) {
         const levelKey = warningColor === 'No Warning' ? 'None' : warningColor;
-        const swatchColor = getColor(levelKey === 'None' ? 'None' : warningColor);
+        const swatchColor = WARNING_COLORS[levelKey] || WARNING_COLORS.None;
         const levelClass = `popup-level--${(levelKey || 'none').toLowerCase()}`;
         const displayLevel = warningColor === 'No Warning' ? 'No warning' : `${warningColor} alert`;
         const advice = WARNING_ADVICE[warningColor] || WARNING_ADVICE.None;
@@ -58,52 +72,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderAlertSummary(warnings) {
         const counts = { Red: 0, Orange: 0, Yellow: 0, Green: 0 };
-        warnings.forEach(({ color }) => {
+        for (let i = 0; i < warnings.length; i++) {
+            const color = warnings[i].color;
             if (counts[color] !== undefined) counts[color]++;
-        });
+        }
 
         const order = ['Red', 'Orange', 'Yellow', 'Green'];
-        const badges = order
-            .filter(level => counts[level] > 0)
-            .map((level, index) => {
-                const label = counts[level] === 1
-                    ? `1 district · ${level}`
-                    : `${counts[level]} districts · ${level}`;
-                const delay = prefersReducedMotion ? 0 : index * 80;
-                return `<span class="alert-badge alert-badge--${level.toLowerCase()}" style="animation-delay: ${delay}ms">${label}</span>`;
-            })
-            .join('');
+        const parts = [];
+        for (let i = 0; i < order.length; i++) {
+            const level = order[i];
+            const count = counts[level];
+            if (count <= 0) continue;
+            const label = count === 1 ? `1 district, ${level}` : `${count} districts, ${level}`;
+            parts.push(`<span class="alert-badge alert-badge--${level.toLowerCase()}">${label}</span>`);
+        }
 
-        if (badges) {
-            alertSummaryEl.innerHTML = badges;
+        if (parts.length) {
+            alertSummaryEl.innerHTML = parts.join('');
             alertSummaryEl.hidden = false;
-            if (counts.Red > 0) {
-                alertSummaryEl.classList.add('alert-summary--severe');
-            }
+            if (counts.Red > 0) alertSummaryEl.classList.add('alert-summary--severe');
         }
     }
 
-    function revealDistricts(layers) {
-        if (prefersReducedMotion) return;
-
-        layers.forEach((layer, index) => {
-            layer.setStyle({ fillOpacity: 0 });
-            setTimeout(() => {
-                layer.setStyle({ fillOpacity: 0.82 });
-            }, 80 + index * 35);
-        });
-    }
-
-    const map = L.map('map', { zoomControl: true }).setView([10.8505, 76.2711], 7);
+    const map = L.map('map', {
+        zoomControl: true,
+        preferCanvas: true
+    }).setView([10.8505, 76.2711], 7);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        updateWhenIdle: true,
+        keepBuffer: 2
     }).addTo(map);
 
-    Promise.all([
-        fetch('data.json'),
-        fetch('kerala-districts.geojson')
-    ])
+    const dataRequest = fetch('data.json');
+    const geoRequest = fetch('kerala-districts.geojson');
+
+    Promise.all([dataRequest, geoRequest])
         .then(([warningsResponse, geojsonResponse]) => {
             if (!warningsResponse.ok) throw new Error('data.json missing');
             if (!geojsonResponse.ok) throw new Error('geojson missing');
@@ -118,54 +123,42 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             lastUpdatedEl.dateTime = updatedDate.toISOString();
 
-            const warningsMap = new Map(
-                weatherData.warnings.map(d => [d.district.toUpperCase().trim(), d.color])
-            );
+            const warningsMap = new Map();
+            for (let i = 0; i < weatherData.warnings.length; i++) {
+                const entry = weatherData.warnings[i];
+                warningsMap.set(entry.district.toUpperCase().trim(), entry.color);
+            }
 
             renderAlertSummary(weatherData.warnings);
 
-            const districtLayers = [];
-
-            L.geoJson(geojsonData, {
+            L.geoJSON(geojsonData, {
                 style(feature) {
                     const districtName = feature.properties.DISTRICT.toUpperCase().trim();
-                    const warningColor = warningsMap.get(districtName) || 'None';
-
-                    return {
-                        fillColor: getColor(warningColor),
-                        weight: 1.5,
-                        opacity: 1,
-                        color: 'white',
-                        fillOpacity: prefersReducedMotion ? 0.82 : 0
-                    };
+                    return getStyle(warningsMap.get(districtName) || 'None');
                 },
                 onEachFeature(feature, layer) {
-                    districtLayers.push(layer);
-
                     const districtName = feature.properties.DISTRICT;
                     const lookupName = districtName.toUpperCase().trim();
                     const warningColor = warningsMap.get(lookupName) || 'No Warning';
 
-                    layer.bindPopup(buildPopupContent(districtName, warningColor));
+                    layer.bindPopup(() => buildPopupContent(districtName, warningColor));
 
-                    layer.on('mouseover', function () {
-                        this.setStyle({ weight: 2.5, fillOpacity: 0.95 });
-                        this.bringToFront();
+                    layer.on('mouseover', function onMouseOver() {
+                        this.setStyle(HOVER_STYLE);
                     });
-                    layer.on('mouseout', function () {
-                        this.setStyle({ weight: 1.5, fillOpacity: 0.82 });
+                    layer.on('mouseout', function onMouseOut() {
+                        this.setStyle(BASE_STYLE);
                     });
                 }
             }).addTo(map);
 
-            revealDistricts(districtLayers);
             hideLoading();
-            map.invalidateSize();
+            requestAnimationFrame(() => map.invalidateSize());
         })
         .catch(() => {
             showError(
                 'Map data could not load',
-                'Run <code>npm run scrape</code> locally, then refresh. If you deployed recently, wait for the next automated data update.'
+                'Run <code>npm run scrape</code> locally, then refresh. If you just deployed, wait for the next automated update.'
             );
         });
 });

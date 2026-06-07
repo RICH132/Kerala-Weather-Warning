@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Live district weather alerts for Kerala — color-coded from official IMD warnings.">
+    <meta name="description" content="Live district weather alerts for Kerala, color-coded from official IMD warnings.">
     <title>Kerala Weather Alerts</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -17,46 +18,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <p class="eyebrow animate-in animate-in--1">India Meteorological Department · Kerala</p>
-            <h1 class="animate-in animate-in--2">Today's district weather alerts</h1>
-            <p class="subtitle animate-in animate-in--3">Tap any district on the map to see its current warning level and what it means for you.</p>
-            <p class="timestamp animate-in animate-in--4">Data refreshed <time id="last-updated" datetime="">Fetching latest warnings…</time></p>
-            <div id="alert-summary" class="alert-summary animate-in animate-in--5" hidden aria-live="polite" aria-label="Active alert counts"></div>
-        </header>
+    <header class="site-header">
+        <div class="site-header__inner">
+            <p class="eyebrow">India Meteorological Department · Kerala</p>
+            <h1>District weather alerts</h1>
+            <p class="lede">Select a district on the map to view its current IMD warning level.</p>
+            <p class="meta">Updated <time id="last-updated" datetime="">Fetching latest warnings…</time></p>
+            <div id="alert-summary" class="alert-summary" hidden aria-live="polite" aria-label="Active alert counts"></div>
+        </div>
+    </header>
 
-        <main>
-            <aside class="legend animate-in animate-in--6" aria-label="What each alert color means">
-                <h2 class="legend-title">Alert key</h2>
-                <ul class="legend-list">
-                    <li><span class="legend-swatch legend-swatch--red" aria-hidden="true"></span><span><strong>Red</strong> — Take action now</span></li>
-                    <li><span class="legend-swatch legend-swatch--orange" aria-hidden="true"></span><span><strong>Orange</strong> — Stay prepared</span></li>
-                    <li><span class="legend-swatch legend-swatch--yellow" aria-hidden="true"></span><span><strong>Yellow</strong> — Stay informed</span></li>
-                    <li><span class="legend-swatch legend-swatch--green" aria-hidden="true"></span><span><strong>Green</strong> — No active warning</span></li>
-                    <li><span class="legend-swatch legend-swatch--none" aria-hidden="true"></span><span><strong>Grey</strong> — Data unavailable</span></li>
-                </ul>
-            </aside>
+    <main class="site-main">
+        <div class="legend" aria-label="Alert color key">
+            <span class="legend-label">Key</span>
+            <ul class="legend-list">
+                <li><span class="legend-swatch legend-swatch--red" aria-hidden="true"></span>Red: take action</li>
+                <li><span class="legend-swatch legend-swatch--orange" aria-hidden="true"></span>Orange: stay prepared</li>
+                <li><span class="legend-swatch legend-swatch--yellow" aria-hidden="true"></span>Yellow: stay informed</li>
+                <li><span class="legend-swatch legend-swatch--green" aria-hidden="true"></span>Green: no warning</li>
+                <li><span class="legend-swatch legend-swatch--none" aria-hidden="true"></span>Grey: no data</li>
+            </ul>
+        </div>
 
-            <div class="map-wrapper animate-in animate-in--7">
-                <div id="map" role="application" aria-label="Interactive map of Kerala. Select a district to view its weather alert."></div>
-                <div id="map-loading" class="map-loading" aria-live="polite">
-                    <span class="map-loading-spinner" aria-hidden="true"></span>
-                    <span class="map-loading-text">Loading IMD warning data…</span>
-                    <span class="map-loading-hint">This usually takes a few seconds</span>
-                </div>
-                <div id="map-error" class="map-error" hidden role="alert"></div>
+        <div class="map-wrapper">
+            <div id="map" role="application" aria-label="Interactive map of Kerala district weather warnings"></div>
+            <div id="map-loading" class="map-loading" aria-live="polite">
+                <span class="map-loading-bar" aria-hidden="true"><span class="map-loading-bar__fill"></span></span>
+                <span class="map-loading-text">Loading warning data</span>
             </div>
-        </main>
+            <div id="map-error" class="map-error" hidden role="alert"></div>
+        </div>
+    </main>
 
-        <footer class="animate-in animate-in--8">
-            <p>This map is unofficial. For decisions that affect safety, always check the <a href="https://mausam.imd.gov.in/" target="_blank" rel="noopener noreferrer">official IMD website</a>.</p>
-        </footer>
-    </div>
+    <footer class="site-footer">
+        <p>Unofficial map. For safety decisions, confirm on the <a href="https://mausam.imd.gov.in/" target="_blank" rel="noopener noreferrer">official IMD website</a>.</p>
+    </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+     crossorigin="" defer></script>
 
     <script src="script.js" defer></script>
 </body>
