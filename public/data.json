@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-08T15:20:36.919Z",
+  "lastUpdated": "2026-06-09T01:47:26.632Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -15,11 +15,11 @@
     },
     {
       "district": "KANNUR  ",
-      "color": "Orange"
+      "color": "Red"
     },
     {
       "district": "KASARAGOD  ",
-      "color": "Orange"
+      "color": "Red"
     },
     {
       "district": "KOLLAM  ",
@@ -31,11 +31,11 @@
     },
     {
       "district": "KOZHIKODE  ",
-      "color": "Orange"
+      "color": "Red"
     },
     {
       "district": "MALAPPURAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "PALAKKAD  ",
