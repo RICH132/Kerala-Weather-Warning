@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-09T01:47:26.632Z",
+  "lastUpdated": "2026-06-09T14:12:57.536Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -35,7 +35,7 @@
     },
     {
       "district": "MALAPPURAM  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "PALAKKAD  ",
@@ -55,7 +55,7 @@
     },
     {
       "district": "WAYANAD  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "LAKSHADWEEP  ",
