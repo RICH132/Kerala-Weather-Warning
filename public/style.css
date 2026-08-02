@@ -404,3 +404,30 @@ body {
         transform: none;
     }
 }
+
+.popup-holiday {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.popup-holiday strong {
+    color: var(--warning-red);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.popup-holiday-reason {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.popup-holiday-link {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    text-decoration: underline;
+    margin-top: 2px;
+}

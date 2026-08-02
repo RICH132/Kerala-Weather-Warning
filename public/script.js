@@ -53,12 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => mapErrorEl.classList.add('is-visible'));
     }
 
-    function buildPopupContent(districtName, warningColor) {
+    function buildPopupContent(districtName, warningColor, holidayInfo) {
         const levelKey = warningColor === 'No Warning' ? 'None' : warningColor;
         const swatchColor = WARNING_COLORS[levelKey] || WARNING_COLORS.None;
         const levelClass = `popup-level--${(levelKey || 'none').toLowerCase()}`;
         const displayLevel = warningColor === 'No Warning' ? 'No warning' : `${warningColor} alert`;
         const advice = WARNING_ADVICE[warningColor] || WARNING_ADVICE.None;
+
+        let holidayHtml = '';
+        if (holidayInfo && holidayInfo.declared) {
+            holidayHtml = `
+                <div class="popup-holiday">
+                    <strong>🎉 Holiday Declared!</strong>
+                    <span class="popup-holiday-reason">${holidayInfo.reason}</span>
+                    <a href="${holidayInfo.postUrl}" target="_blank" class="popup-holiday-link">View official post</a>
+                </div>
+            `;
+        }
 
         return `
             <span class="popup-district">${districtName}</span>
@@ -67,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${displayLevel}
             </span>
             <span class="popup-advice">${advice}</span>
+            ${holidayHtml}
         `;
     }
 
@@ -107,14 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dataRequest = fetch('data.json');
     const geoRequest = fetch('kerala-districts.geojson');
+    // We catch the holiday fetch so it doesn't break the whole app if missing
+    const holidaysRequest = fetch('holidays.json').then(res => res.ok ? res.json() : { holidays: [] }).catch(() => ({ holidays: [] }));
 
-    Promise.all([dataRequest, geoRequest])
-        .then(([warningsResponse, geojsonResponse]) => {
+    Promise.all([dataRequest, geoRequest, holidaysRequest])
+        .then(([warningsResponse, geojsonResponse, holidaysData]) => {
             if (!warningsResponse.ok) throw new Error('data.json missing');
             if (!geojsonResponse.ok) throw new Error('geojson missing');
-            return Promise.all([warningsResponse.json(), geojsonResponse.json()]);
+            return Promise.all([warningsResponse.json(), geojsonResponse.json(), holidaysData]);
         })
-        .then(([weatherData, geojsonData]) => {
+        .then(([weatherData, geojsonData, holidaysData]) => {
             const updatedDate = new Date(weatherData.lastUpdated);
             lastUpdatedEl.textContent = updatedDate.toLocaleString('en-IN', {
                 dateStyle: 'full',
@@ -129,6 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 warningsMap.set(entry.district.toUpperCase().trim(), entry.color);
             }
 
+            const holidaysMap = new Map();
+            if (holidaysData && holidaysData.holidays) {
+                for (let i = 0; i < holidaysData.holidays.length; i++) {
+                    const entry = holidaysData.holidays[i];
+                    holidaysMap.set(entry.district.toUpperCase().trim(), entry);
+                }
+            }
+
             renderAlertSummary(weatherData.warnings);
 
             L.geoJSON(geojsonData, {
@@ -140,8 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const districtName = feature.properties.DISTRICT;
                     const lookupName = districtName.toUpperCase().trim();
                     const warningColor = warningsMap.get(lookupName) || 'No Warning';
+                    const holidayInfo = holidaysMap.get(lookupName);
 
-                    layer.bindPopup(() => buildPopupContent(districtName, warningColor));
+                    layer.bindPopup(() => buildPopupContent(districtName, warningColor, holidayInfo));
 
                     layer.on('mouseover', function onMouseOver() {
                         this.setStyle(HOVER_STYLE);

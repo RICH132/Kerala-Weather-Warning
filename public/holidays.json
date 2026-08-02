@@ -1,0 +1,24 @@
+{
+  "lastUpdated": "2026-08-02T18:19:04.901Z",
+  "holidays": [
+    {
+      "district": "Ernakulam",
+      "declared": true,
+      "date": "2026-08-03T18:18:57.592Z",
+      "reason": "Heavy Rain",
+      "postUrl": "https://www.facebook.com/dcekm",
+      "source": "Facebook",
+      "announcedAt": "2026-08-02T18:18:57.592Z",
+      "confidence": 0.95,
+      "affectedInstitutions": {
+        "schools": true,
+        "colleges": true,
+        "professionalColleges": true,
+        "anganwadis": true,
+        "madrasas": true,
+        "tuitionCenters": true,
+        "trainingInstitutes": true
+      }
+    }
+  ]
+}
