@@ -62,13 +62,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let holidayHtml = '';
         if (holidayInfo && holidayInfo.declared) {
-            holidayHtml = `
-                <div class="popup-holiday">
-                    <strong>🎉 Holiday Declared!</strong>
-                    <span class="popup-holiday-reason">${holidayInfo.reason}</span>
-                    <a href="${holidayInfo.postUrl}" target="_blank" class="popup-holiday-link">View official post</a>
-                </div>
-            `;
+            let isCurrentHoliday = true;
+            if (holidayInfo.date) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const holidayDate = new Date(holidayInfo.date);
+                if (holidayDate < today) {
+                    isCurrentHoliday = false;
+                }
+            }
+            
+            if (isCurrentHoliday) {
+                let displayDate = 'Holiday';
+                if (holidayInfo.date) {
+                    const dateObj = new Date(holidayInfo.date);
+                    displayDate = dateObj.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+                }
+
+                holidayHtml = `
+                    <div class="popup-holiday">
+                        <strong>🎉 ${displayDate} Declared!</strong>
+                        <span class="popup-holiday-reason">${holidayInfo.reason}</span>
+                        <a href="${holidayInfo.postUrl}" target="_blank" class="popup-holiday-link">View official post</a>
+                    </div>
+                `;
+            }
         }
 
         return `
