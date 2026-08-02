@@ -1,10 +1,58 @@
 [
   {
+    "district": "Thiruvananthapuram",
+    "facebookUrl": "https://www.facebook.com/dctvm"
+  },
+  {
+    "district": "Kollam",
+    "facebookUrl": "https://www.facebook.com/kollamcollector"
+  },
+  {
+    "district": "Pathanamthitta",
+    "facebookUrl": "https://www.facebook.com/collectorpta"
+  },
+  {
+    "district": "Alappuzha",
+    "facebookUrl": "https://www.facebook.com/alappuzhacollector"
+  },
+  {
+    "district": "Kottayam",
+    "facebookUrl": "https://www.facebook.com/dckottayam"
+  },
+  {
+    "district": "Idukki",
+    "facebookUrl": "https://www.facebook.com/idukkicollector"
+  },
+  {
     "district": "Ernakulam",
     "facebookUrl": "https://www.facebook.com/dcekm"
   },
   {
-    "district": "Thiruvananthapuram",
-    "facebookUrl": "https://www.facebook.com/dctvm"
+    "district": "Thrissur",
+    "facebookUrl": "https://www.facebook.com/dcthrissur"
+  },
+  {
+    "district": "Palakkad",
+    "facebookUrl": "https://www.facebook.com/palakkadcollector"
+  },
+  {
+    "district": "Malappuram",
+    "facebookUrl": "https://www.facebook.com/malappuramcollector"
+  },
+  {
+    "district": "Kozhikode",
+    "facebookUrl": "https://www.facebook.com/kozhikodecollector"
+  },
+  {
+    "district": "Wayanad",
+    "facebookUrl": "https://www.facebook.com/wayanadcollector"
+  },
+  {
+    "district": "Kannur",
+    "facebookUrl": "https://www.facebook.com/kannurcollector"
+  },
+  {
+    "district": "Kasaragod",
+    "facebookUrl": "https://www.facebook.com/kasaragodcollector"
   }
 ]
