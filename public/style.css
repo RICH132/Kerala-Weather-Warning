@@ -431,3 +431,42 @@ body {
     text-decoration: underline;
     margin-top: 2px;
 }
+
+.holiday-summary {
+    margin-top: 16px;
+    background: var(--color-bg);
+    border: 1px solid var(--warning-red);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.holiday-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.holiday-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: var(--text-sm);
+}
+
+.holiday-table th {
+    background: var(--warning-red);
+    color: white;
+    padding: 8px 12px;
+    font-weight: 600;
+}
+
+.holiday-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.holiday-table tr:last-child td {
+    border-bottom: none;
+}
+

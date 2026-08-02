@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapLoadingEl = document.getElementById('map-loading');
     const mapErrorEl = document.getElementById('map-error');
     const alertSummaryEl = document.getElementById('alert-summary');
+    const holidaySummaryEl = document.getElementById('holiday-summary');
 
     const WARNING_COLORS = {
         Red: 'oklch(0.52 0.19 25)',
@@ -124,6 +125,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function renderHolidaySummary(holidaysMap) {
+        if (!holidaySummaryEl) return;
+        const activeHolidays = [];
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        holidaysMap.forEach((holidayInfo, district) => {
+            if (holidayInfo && holidayInfo.declared) {
+                if (holidayInfo.date) {
+                    const holidayDate = new Date(holidayInfo.date);
+                    if (holidayDate < today) return; // Skip past
+                }
+                activeHolidays.push(holidayInfo);
+            }
+        });
+
+        if (activeHolidays.length === 0) {
+            holidaySummaryEl.hidden = true;
+            return;
+        }
+
+        let tableHtml = `
+            <div class="holiday-table-wrapper">
+                <table class="holiday-table">
+                    <thead>
+                        <tr>
+                            <th>District</th>
+                            <th>Date</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        activeHolidays.forEach(h => {
+            let displayDate = 'Holiday';
+            if (h.date) {
+                const dateObj = new Date(h.date);
+                displayDate = dateObj.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' });
+            }
+            
+            tableHtml += `
+                <tr>
+                    <td><strong>${h.district}</strong></td>
+                    <td>${displayDate}</td>
+                    <td>${h.reason}</td>
+                </tr>
+            `;
+        });
+
+        tableHtml += `</tbody></table></div>`;
+        holidaySummaryEl.innerHTML = tableHtml;
+        holidaySummaryEl.hidden = false;
+    }
+
     const map = L.map('map', {
         zoomControl: true,
         preferCanvas: true
@@ -170,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             renderAlertSummary(weatherData.warnings);
+            renderHolidaySummary(holidaysMap);
 
             L.geoJSON(geojsonData, {
                 style(feature) {
