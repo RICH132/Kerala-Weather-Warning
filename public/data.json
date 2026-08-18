@@ -1,4 +1,21 @@
 {
-  "lastUpdated": "2026-08-18T01:08:45.785Z",
-  "warnings": []
+  "lastUpdated": "2026-08-18T12:40:43.658Z",
+  "warnings": [
+    {
+      "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KANNUR  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KASARAGOD  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "KOTTAYAM  ",
+      "color": "Yellow"
+    }
+  ]
 }
