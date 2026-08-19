@@ -1,8 +1,12 @@
 {
-  "lastUpdated": "2026-08-19T01:06:16.740Z",
+  "lastUpdated": "2026-08-19T12:41:12.387Z",
   "warnings": [
     {
       "district": "ERNAKULAM  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "IDUKKI  ",
       "color": "Yellow"
     },
     {
