@@ -1,4 +1,13 @@
 {
-  "lastUpdated": "2026-09-05T02:57:11.294Z",
-  "warnings": []
+  "lastUpdated": "2026-09-05T14:36:03.402Z",
+  "warnings": [
+    {
+      "district": "IDUKKI  ",
+      "color": "Yellow"
+    },
+    {
+      "district": "PATHANAMTHITTA  ",
+      "color": "Yellow"
+    }
+  ]
 }
