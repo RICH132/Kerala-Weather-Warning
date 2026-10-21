@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-10-21T03:19:09.556Z",
+  "lastUpdated": "2026-10-21T16:37:23.841Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "ERNAKULAM  ",
@@ -23,11 +23,11 @@
     },
     {
       "district": "KOLLAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KOTTAYAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "KOZHIKODE  ",
@@ -43,11 +43,11 @@
     },
     {
       "district": "PATHANAMTHITTA  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "THIRUVANANTHAPURAM  ",
-      "color": "Yellow"
+      "color": "Orange"
     },
     {
       "district": "THRISSUR  ",
