@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-26T03:12:44.121Z",
+  "lastUpdated": "2026-10-26T18:15:29.363Z",
   "warnings": [
     {
       "district": "ALAPPUZHA  ",
@@ -31,19 +31,19 @@
     },
     {
       "district": "KOZHIKODE  ",
-      "color": "Red"
+      "color": "Yellow"
     },
     {
       "district": "MALAPPURAM  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "PALAKKAD  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "PATHANAMTHITTA  ",
-      "color": "Orange"
+      "color": "Yellow"
     },
     {
       "district": "THIRUVANANTHAPURAM  ",
@@ -55,7 +55,7 @@
     },
     {
       "district": "WAYANAD  ",
-      "color": "Red"
+      "color": "Yellow"
     },
     {
       "district": "LAKSHADWEEP  ",
